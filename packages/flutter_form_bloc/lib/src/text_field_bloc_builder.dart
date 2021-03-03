@@ -3,18 +3,16 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_bloc/src/can_show_field_bloc_builder.dart';
 import 'package:flutter_form_bloc/src/flutter_typeahead.dart';
 import 'package:flutter_form_bloc/src/utils/utils.dart';
 import 'package:form_bloc/form_bloc.dart';
-import 'package:flutter/widgets.dart';
-
-export 'package:flutter/widgets.dart' show EditableText;
 
 export 'package:flutter/services.dart'
     show TextInputType, TextInputAction, TextCapitalization;
-
+export 'package:flutter/widgets.dart' show EditableText;
 export 'package:flutter_form_bloc/src/flutter_typeahead.dart'
     show SuggestionsBoxDecoration;
 
@@ -91,7 +89,7 @@ class TextFieldBlocBuilder extends StatefulWidget {
     this.textCapitalization = TextCapitalization.none,
     this.style,
     this.strutStyle,
-    this.obscureText,
+    this.obscureText = false,
     this.textAlign = TextAlign.start,
     this.textAlignVertical,
     this.textDirection,
@@ -834,7 +832,9 @@ class _TextFieldBlocBuilderState extends State<TextFieldBlocBuilder> {
           keyboardType: widget.keyboardType,
           textInputAction: widget.textInputAction != null
               ? widget.textInputAction
-              : widget.nextFocusNode != null ? TextInputAction.next : null,
+              : widget.nextFocusNode != null
+                  ? TextInputAction.next
+                  : null,
           textCapitalization: widget.textCapitalization,
           style: isEnabled
               ? widget.style
@@ -848,7 +848,9 @@ class _TextFieldBlocBuilderState extends State<TextFieldBlocBuilder> {
           textAlign: widget.textAlign,
           textDirection: widget.textDirection,
           autofocus: widget.autofocus,
-          obscureText: _obscureText,
+          obscureText: (widget.suffixButton == SuffixButton.obscureText)
+              ? _obscureText
+              : widget.obscureText,
           autocorrect: widget.autocorrect,
           minLines: widget.minLines,
           maxLines: widget.maxLines,
@@ -972,7 +974,9 @@ class _TextFieldBlocBuilderState extends State<TextFieldBlocBuilder> {
         keyboardType: widget.keyboardType,
         textInputAction: widget.textInputAction != null
             ? widget.textInputAction
-            : widget.nextFocusNode != null ? TextInputAction.next : null,
+            : widget.nextFocusNode != null
+                ? TextInputAction.next
+                : null,
         textCapitalization: widget.textCapitalization,
         style: isEnabled
             ? widget.style
